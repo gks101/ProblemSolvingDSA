@@ -1,7 +1,6 @@
 package org.gaurav.heap;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -11,15 +10,15 @@ public class KthLargestElement {
         return nums[nums.length - k];
     }
 
-    public int findKthLargestElement(int[] nums, int k) {
-        Queue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+    public int findKthLargestElement(int[] nums, int k) {   
+        Queue<Integer> maxHeap = new PriorityQueue<>();
         for (int n: nums) {
-            maxHeap.add(n);
+            maxHeap.offer(n);
+
+            if (maxHeap.size() > k) {
+                maxHeap.poll();
+            }
         }
-        int n = -1;
-        while (k-- > 0) {
-            n = maxHeap.poll();
-        }
-        return n;
+        return maxHeap.peek();
     }
 }
